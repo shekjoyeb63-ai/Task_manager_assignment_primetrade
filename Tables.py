@@ -65,4 +65,5 @@ class TokenBlacklist(Base):
     jti = Column(String, nullable=False, index=True, unique=True)
     created_at = Column(String)
 
-Base.metadata.create_all(engine)
+if os.getenv("ENV") == "development":
+    Base.metadata.create_all(engine)
