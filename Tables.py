@@ -3,9 +3,15 @@ from sqlalchemy.orm import DeclarativeBase, sessionmaker, relationship
 from datetime import datetime, UTC
 import os
 
-DATABASE = os.getenv("DATABASE_URL" , "sqlite:///Expense.db")
+DATABASE = os.getenv("DATABASE_URL")
 
-engine = create_engine(DATABASE, echo=False)
+if not DATABASE:
+    raise ValueError("DATABASE_URL is not set!")
+
+if DATABASE.startswith("postgres://"):
+    DATABASE = DATABASE.replace("postgres://", "postgresql://", 1)
+
+engine = create_engine(DATABASE, pool_pre_ping=True)
 
 sessionLocal = sessionmaker(bind=engine)
 
