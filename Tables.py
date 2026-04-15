@@ -1,8 +1,9 @@
 from sqlalchemy import Integer, String, create_engine, Column, ForeignKey, Text
 from sqlalchemy.orm import DeclarativeBase, sessionmaker, relationship
 from datetime import datetime, UTC
+import os
 
-DATABASE = "sqlite:///task_manager.db"
+DATABASE = os.getenv("DATABASE_URL" , "sqlite:///Expense.db")
 
 engine = create_engine(DATABASE, echo=False)
 
