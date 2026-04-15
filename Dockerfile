@@ -32,4 +32,4 @@ USER appuser
 
 EXPOSE 5000
 
-CMD ["python", "-m", "gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "--timeout", "60", "Flask_routes:app"]
+CMD ["sh", "-c", "gunicorn Flask_routes:app --bind 0.0.0.0:$PORT --worker-tmp-dir /tmp"]
